@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const DashboardScreen = () => {
+const DashboardScreen = ({ navigation }) => {
     const insets = useSafeAreaInsets();
     const [selectedStatus, setSelectedStatus] = useState(null);
 
@@ -123,7 +123,12 @@ const DashboardScreen = () => {
                 {/* Vehicle List */}
                 <ScrollView style={styles.vehicleList} showsVerticalScrollIndicator={false}>
                     {vehicles.map((vehicle) => (
-                        <View key={vehicle.id} style={styles.vehicleCard}>
+                        <TouchableOpacity
+                            key={vehicle.id}
+                            style={styles.vehicleCard}
+                            onPress={() => navigation.navigate('Map', { vehicle })}
+                            activeOpacity={0.7}
+                        >
                             {/* Vehicle Header */}
                             <View style={styles.vehicleHeader}>
                                 <Text style={styles.vehicleIcon}>{vehicle.icon}</Text>
@@ -201,7 +206,7 @@ const DashboardScreen = () => {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     ))}
                 </ScrollView>
             </View>

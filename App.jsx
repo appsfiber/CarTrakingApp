@@ -8,14 +8,27 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar, useColorScheme, Text } from 'react-native';
 
 import DashboardScreen from './src/screens/DashboardScreen.jsx';
 import NotificationScreen from './src/screens/NotificationScreen.jsx';
 import SupportScreen from './src/screens/SupportScreen.jsx';
+import MapScreen from './src/screens/MapScreen.jsx';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+// Dashboard Stack Navigator
+function DashboardStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="DashboardMain" component={DashboardScreen} />
+      <Stack.Screen name="Map" component={MapScreen} />
+    </Stack.Navigator>
+  );
+}
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -36,7 +49,7 @@ function App() {
           }}>
           <Tab.Screen
             name="Dashboard"
-            component={DashboardScreen}
+            component={DashboardStack}
             options={{
               tabBarLabel: 'Dashboard',
               tabBarIcon: ({ color }) => (
